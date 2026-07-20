@@ -1,0 +1,328 @@
+/* =====================================================
+   SWELL (style.css) — 절제된 고급스러움 + 여백의 미
+   🏷️ [수정 지점 0] 무드 전체는 아래 토큰만 바꾸면 됩니다!
+   ===================================================== */
+
+:root {
+  --foam: #fbfaf7;          /* 파도 거품색 배경 (여백의 미의 캔버스) */
+  --ink: #10222c;           /* 깊은 바다의 남색-잉크 */
+  --ink-soft: #5d6b73;      /* 보조 글자 */
+  --ocean: #1e6f7a;         /* 포인트: 절제된 딥 오션 티얼 */
+  --rule: #e3e0d8;          /* 가는 괘선 */
+  --serif: 'Playfair Display', serif;
+  --sans: 'Noto Sans KR', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }               /* 앵커 이동 스르륵 */
+
+body {
+  background: var(--foam);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-weight: 300;
+}
+
+/* ================= 내비 (유리 바) ================= */
+.glass-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 40;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 6vw;
+  background: rgba(251, 250, 247, 0.7);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(16, 34, 44, 0.08);
+}
+
+.brand {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: 0.3em;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.nav-links a {
+  color: var(--ink-soft);
+  text-decoration: none;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  margin-left: 26px;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--ocean); }
+
+/* ================= ① 히어로 ================= */
+.hero {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  /* 이미지가 안 뜰 때의 폴백: 새벽 바다 그라데이션 */
+  background: linear-gradient(160deg, #24404e 0%, #10222c 70%);
+}
+
+.hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;                 /* 배경 이미지의 필수 속성 */
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  /* 왼쪽만 어둡게 → 글자는 왼쪽, 서핑 장면은 오른쪽에 살리는 절제된 막 */
+  background: linear-gradient(90deg, rgba(10,22,30,0.72) 0%, rgba(10,22,30,0.15) 65%, transparent 100%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+  padding: 0 8vw;
+  max-width: 720px;
+}
+
+.hero-eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.4em;
+  color: #bcd6d2;
+  margin-bottom: 18px;
+  animation: riseUp 1s ease 0.2s both;
+}
+
+.hero-title {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: clamp(40px, 6.5vw, 76px);
+  line-height: 1.15;
+  animation: riseUp 1s ease 0.45s both;
+}
+
+.hero-sub {
+  margin: 22px 0 36px;
+  font-size: clamp(15px, 2vw, 18px);
+  color: #d9e2e0;
+  animation: riseUp 1s ease 0.7s both;
+}
+
+@keyframes riseUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.cta-button {
+  display: inline-block;
+  padding: 14px 30px;
+  border: 1px solid rgba(255,255,255,0.7);
+  border-radius: 999px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  transition: background 0.25s, color 0.25s;
+  animation: riseUp 1s ease 0.95s both;
+}
+.cta-button:hover { background: #fff; color: var(--ink); }
+
+/* ================= 공통 섹션: 여백의 미 ================= */
+.section {
+  padding: 130px 6vw;                 /* 넉넉한 위아래 여백이 곧 디자인! */
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+}
+.section.tinted {
+  max-width: none;
+  background: #f3f1ea;                /* 아주 옅은 모래색 한 톤 */
+}
+
+.section-title {
+  font-family: var(--serif);
+  font-size: clamp(26px, 4vw, 40px);
+  font-weight: 700;
+}
+.section-sub { color: var(--ink-soft); margin: 14px 0 56px; font-size: 15px; }
+
+/* 스크롤 리빌 (JS와 한 세트) */
+.reveal { opacity: 0; transform: translateY(34px); transition: opacity 0.8s, transform 0.8s; }
+.reveal.show { opacity: 1; transform: translateY(0); }
+
+/* ================= ② 점수 카드 ================= */
+.score-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.score-card {
+  background: #fff;
+  border: 1px solid var(--rule);
+  border-radius: 16px;
+  padding: 30px 22px;
+  text-align: left;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+.score-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 14px 30px rgba(16, 34, 44, 0.08);
+}
+
+.score-card h3 { font-size: 17px; font-weight: 500; margin-bottom: 4px; }
+.score-card .spot-en {
+  font-size: 11px; letter-spacing: 0.2em; color: var(--ink-soft);
+  text-transform: uppercase; margin-bottom: 18px;
+}
+
+/* 점수 뱃지: 등급 색이 JS에서 클래스로 붙음 */
+.score-badge {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.score-badge .num { font-family: var(--serif); font-size: 42px; font-weight: 700; }
+.score-badge .label { font-size: 13px; font-weight: 500; }
+
+.grade-green  .num, .grade-green  .label { color: #1d7a4f; }
+.grade-yellow .num, .grade-yellow .label { color: #b07d1a; }
+.grade-red    .num, .grade-red    .label { color: #b3382f; }
+.grade-gray   .num, .grade-gray   .label { color: #8a8a8a; }
+
+.score-detail { font-size: 13px; color: var(--ink-soft); line-height: 1.9; }
+.score-detail b { color: var(--ink); font-weight: 500; }
+.score-msg {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--rule);
+  font-size: 13px;
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
+
+/* ================= ③ 갤러리 (클릭해서 확대) ================= */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 16px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  cursor: pointer;                    /* "누를 수 있음" 신호 */
+  background: linear-gradient(160deg, #2c4a58, #10222c);  /* 이미지 실패 시 폴백 */
+  aspect-ratio: 4 / 5;
+}
+
+.gallery-item img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
+.gallery-item:hover img { transform: scale(1.06); }
+
+.gallery-item figcaption {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 44px 16px 14px;
+  color: #fff;
+  font-size: 14px;
+  text-align: left;
+  background: linear-gradient(transparent, rgba(10, 22, 30, 0.8));
+}
+
+/* ================= ④ 필름 포스터 (클릭해서 재생) ================= */
+.film-poster {
+  position: relative;
+  max-width: 880px;
+  margin: 0 auto;
+  border-radius: 18px;
+  overflow: hidden;
+  cursor: pointer;
+  aspect-ratio: 16 / 9;
+  background: linear-gradient(160deg, #2c4a58, #10222c);
+}
+.film-poster img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.6s;
+}
+.film-poster:hover img { transform: scale(1.03); }
+
+.play-badge {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 74px; height: 74px;
+  border-radius: 50%;
+  background: rgba(251, 250, 247, 0.9);
+  color: var(--ink);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  transition: transform 0.2s, background 0.2s;
+}
+.film-poster:hover .play-badge {
+  transform: translate(-50%, -50%) scale(1.1);
+  background: #fff;
+}
+
+/* ================= 라이트박스 모달 (이미지/영상 확대) ================= */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(6, 14, 19, 0.94);
+  display: none;                       /* 평소엔 숨김 */
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+.lightbox.open { display: flex; }      /* JS가 .open 붙이면 등장 */
+
+.lightbox img,
+.lightbox video {
+  max-width: 90vw;
+  max-height: 84vh;
+  border-radius: 10px;
+  display: none;                       /* 이미지/영상 중 필요한 것만 JS가 켬 */
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px; right: 28px;
+  font-size: 34px;
+  color: #fff;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* ================= 푸터 ================= */
+.site-footer {
+  text-align: center;
+  padding: 30px 16px 44px;
+  border-top: 1px solid var(--rule);
+  color: var(--ink-soft);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+}
+.footer-credit { margin-top: 6px; }
+
+@media (max-width: 576px) {
+  .section { padding: 90px 6vw; }
+  .nav-links a { margin-left: 14px; font-size: 12px; }
+}

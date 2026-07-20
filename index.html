@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- 🏷️ [수정 지점 1] 사이트 이름 (팀에서 정한 이름으로!) -->
+    <title>SWELL — 오늘, 바다에 들어가도 될까?</title>
+
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,500&family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- ================= 내비: 유리 바 (절제된 로고 + 앵커) ================= -->
+    <nav class="glass-nav">
+      <a class="brand" href="#hero">SWELL</a>
+      <div class="nav-links">
+        <a href="#score">오늘의 점수</a>
+        <a href="#spots">스팟</a>
+        <a href="#film">필름</a>
+      </div>
+    </nav>
+
+    <!-- ================= ① 히어로: 남녀가 함께 파도 타는 장면 ================= -->
+    <section class="hero" id="hero">
+      <!-- 🏷️ [수정 지점 2] 히어로 이미지: 팀이 고른 서핑 커플 사진으로 교체
+           (본인 사진이 최고! 없으면 무료 이미지 사이트에서 'couple surfing' 검색) -->
+      <img class="hero-img"
+           src="https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=1800&q=75"
+           alt="파도를 함께 타는 두 서퍼"
+           onerror="this.style.display='none'" />
+      <div class="hero-overlay"></div>
+
+      <div class="hero-content">
+        <p class="hero-eyebrow">EAST COAST · KOREA</p>
+        <h1 class="hero-title">둘이 함께,<br />같은 파도 위에</h1>
+        <p class="hero-sub">오늘 바다에 들어가도 될지 — 파고·바람·날씨를 한 점수로.</p>
+        <a class="cta-button" href="#score">오늘의 서핑 점수 <i class="fas fa-water"></i></a>
+      </div>
+    </section>
+
+    <!-- ================= ② 오늘의 서핑 점수 (API의 심장부) ================= -->
+    <section class="section" id="score">
+      <h2 class="section-title reveal">오늘의 서핑 점수</h2>
+      <p class="section-sub reveal">스팟별 파고 · 바람 · 날씨를 종합한 점수예요.</p>
+
+      <!-- 🔌🔌🔌 [API 연결 지점 A] 🔌🔌🔌
+           점수 카드들이 JS의 renderScores()로 이 안에 그려집니다.
+           지금은 '가짜 데이터'로 작동 → script.js의 getSpotData()에
+           바다누리/기상청 fetch를 넣으면 진짜 데이터로 전환! -->
+      <div class="score-grid" id="score-board"></div>
+    </section>
+
+    <!-- ================= ③ 스팟 갤러리: 눌러서 크게 보기 ================= -->
+    <section class="section tinted" id="spots">
+      <h2 class="section-title reveal">스팟 미리보기</h2>
+      <p class="section-sub reveal">사진을 누르면 크게 볼 수 있어요.</p>
+
+      <div class="gallery-grid reveal">
+        <!-- 🏷️ [수정 지점 3] 갤러리 사진/이름: 우리 스팟 사진으로 교체
+             onclick="openLightbox(this)" 만 붙이면 어떤 사진이든 확대 가능! -->
+        <figure class="gallery-item" onclick="openLightbox(this)">
+          <img src="https://images.unsplash.com/photo-1455729552865-3658a5d39692?w=900&q=70"
+               alt="양양 죽도" onerror="this.style.display='none'" />
+          <figcaption>양양 · 죽도</figcaption>
+        </figure>
+        <figure class="gallery-item" onclick="openLightbox(this)">
+          <img src="https://images.unsplash.com/photo-1468413253725-0d5181091126?w=900&q=70"
+               alt="양양 인구" onerror="this.style.display='none'" />
+          <figcaption>양양 · 인구</figcaption>
+        </figure>
+        <figure class="gallery-item" onclick="openLightbox(this)">
+          <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=900&q=70"
+               alt="부산 송정" onerror="this.style.display='none'" />
+          <figcaption>부산 · 송정</figcaption>
+        </figure>
+        <figure class="gallery-item" onclick="openLightbox(this)">
+          <img src="https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=900&q=70"
+               alt="제주 중문" onerror="this.style.display='none'" />
+          <figcaption>제주 · 중문</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ================= ④ 필름: 눌러서 재생하는 영상 ================= -->
+    <section class="section" id="film">
+      <h2 class="section-title reveal">SWELL FILM</h2>
+      <p class="section-sub reveal">눌러서 재생 — 오늘의 바다를 미리 느껴보세요.</p>
+
+      <!-- 🏷️ [수정 지점 4] video 폴더에 surf.mp4를 넣으면 재생됩니다 -->
+      <div class="film-poster reveal" onclick="openVideo()">
+        <img src="https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=1400&q=70"
+             alt="서핑 필름 포스터" onerror="this.style.display='none'" />
+        <span class="play-badge"><i class="fas fa-play"></i></span>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <p>SWELL — 파도와 날씨 데이터로 만드는 하루의 결정</p>
+      <!-- 🏷️ [수정 지점 5] 팀원 이름 -->
+      <p class="footer-credit">Team: 동희 · 상진 · 하린</p>
+    </footer>
+
+    <!-- ================= 라이트박스: 이미지/영상 확대 모달 (평소엔 숨김) ================= -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+      <button class="lightbox-close" onclick="closeLightbox(event)">&times;</button>
+      <img id="lightbox-img" src="" alt="" />
+      <video id="lightbox-video" controls>
+        <source src="video/surf.mp4" type="video/mp4" />
+      </video>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
